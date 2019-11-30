@@ -41,7 +41,7 @@ fs.copyFile('./info/log.txt','./info/userlog.txt/',function(err){
     }
 })
 
-fs.mkdir(path,callback);创建目录
+fs.mkdir(path,callback);创建目录，只能删除空目录
 fs.mkdir('./info',function(err){
     if(!err){
     console.log('创建文件夹成功');
