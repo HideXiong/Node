@@ -13,9 +13,11 @@ connection.connect();
 var addSql = 'INSERT INTO USER(id,name,phoneNum) VALUES(?,?,?)';
 var addParm = [5, 'Node', 5786333];
 connection.query(addSql, addParm, function(err, result) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log(result);
-    }
-})
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+        }
+    })
+    //关闭连接
+connection.end();

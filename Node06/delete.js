@@ -23,3 +23,5 @@ connection.query(delSql, function(err, result) {
         console.log(err);
     }
 });
+
+connection.end();

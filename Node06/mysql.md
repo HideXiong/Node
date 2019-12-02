@@ -48,4 +48,6 @@ var updateSql = 'UPDATE user SET name = "javaScript" where id = 1';
 connection.query(updateSql, function(err, result) {
     err ? console.log(err) : console.log(result);
 });
+//关闭连接
+connection.end();
 ```
