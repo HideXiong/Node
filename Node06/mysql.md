@@ -25,7 +25,6 @@ connection.query(sql,function(err,result){
 });
 //增
 var addSql = 'INSERT INTO user(id,name,phoneNum) VALUES(?,?,?)';
-//不能直接增加，只能以对象的方式去增加
 var addParm = [1,'Node','5786333'];
 connection.query(addSql,addParm,function(err,result){
     if(!err){
