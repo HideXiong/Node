@@ -1,38 +1,5 @@
 var fs = require('fs');
-// module.exports = function(app) {
-//     app.get('/students', function(req, res) {
-//         fs.readFile('./db.json', 'utf8', function(err, data) {
-//             if (!err) {
-//                 res.render('index.html', {
-//                     fruits: [
-//                         '一班',
-//                         '二班',
-//                         '三班',
-//                         '四班'
-//                     ],
-//                     students: JSON.parse(data).students
-//                 });
-//             }
-//         })
-//     })
-
-//     app.get('/students/new', function(req, res) {
-
-//     })
-
-//     app.get('/students/new', function(req, res) {
-
-//     })
-
-//     app.get('/students/new', function(req, res) {
-
-//     })
-
-//     app.get('/students/new', function(req, res) {
-
-//     })
-// }
-
+var Students = require('./students');
 //加载expree模块
 var express = require('express');
 
@@ -43,8 +10,10 @@ var router = express.Router();
 //把路由都放到router容器中
 
 router.get('/students', function(req, res) {
-    fs.readFile('./db.json', 'utf8', function(err, data) {
-        if (!err) {
+    Students.find(function(err, students) {
+        if (err) {
+            return res.status(500).send('服务器繁忙');
+        } else {
             res.render('index.html', {
                 fruits: [
                     '一班',
@@ -52,7 +21,7 @@ router.get('/students', function(req, res) {
                     '三班',
                     '四班'
                 ],
-                students: JSON.parse(data).students
+                students: students
             });
         }
     })
