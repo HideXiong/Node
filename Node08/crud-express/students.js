@@ -46,7 +46,28 @@ exports.save = function (student, callback) {
 
 
 //更新学生信息
-exports.update = function () {
+exports.updateById= function (student,callback) {
+    var stu = '';
+    fs.readFile(dbPath,'utf8',function(err,data){
+        if(err){
+            return callback(err);
+        }else{
+            var students = JSON.parse(data).students;
+            for(var i = 0;i < students.length;i++){
+               if(student.id == students[i].id){
+                students[i] = student;
+               }
+            }
+            var fileData = JSON.stringify({students:students});
+            fs.writeFile(dbPath,fileData,function(err){
+                if(err){
+
+                }else{
+                    callback(null);
+                }
+            })
+        }
+    })
 }
 
 

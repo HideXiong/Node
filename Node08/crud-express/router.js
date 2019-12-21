@@ -8,7 +8,6 @@ var express = require('express');
 var router = express.Router();
 
 //把路由都放到router容器中
-
 router.get('/students', function(req, res) {
     Students.find(function(err, students) {
         if (err) {
@@ -35,7 +34,13 @@ router.post('/students/new', function(req, res) {
     //获取表单数据
     //处理
     //发送响应
-
+    Students.save(req.body,function(err){
+        if(err){
+            res.status(500).send('服务器繁忙');
+        }else{
+             res.redirect('/students');
+        }
+    })
 })
 
 router.get('/students/edit', function(req, res) {
