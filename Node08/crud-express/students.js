@@ -25,8 +25,12 @@ exports.save = function (student, callback) {
             return callback(err);
         } else {
             var students = JSON.parse(data).students;
-
-            student.id = students[students.length - 1].id + 1;
+            if(students.length >0){
+                 student.id = students[students.length - 1].id + 1;
+            }else{
+                 student.id = 0;
+            }
+           
 
             students.push(student);
 
@@ -55,6 +59,7 @@ exports.updateById= function (student,callback) {
             var students = JSON.parse(data).students;
             for(var i = 0;i < students.length;i++){
                if(student.id == students[i].id){
+                console.log('进来了');
                 students[i] = student;
                }
             }
@@ -70,9 +75,52 @@ exports.updateById= function (student,callback) {
     })
 }
 
+//根据id查找学生信息
+ exports.findById = function(id,callback){
+    var res = '';
+    fs.readFile(dbPath,'utf8',function(err,data){
+        if(err){
+            return callback(err);
+        }else{
+            var students = JSON.parse(data).students;
+
+            for(var i = 0;i < students.length;i++){
+                if(students[i].id == id){
+                    console.log(students[i]);
+                     res = students[i];
+                }
+            }
+            callback(null,res);
+        }
+    })
+ }
 
 //删除学生
-exports.delete = function () {
+exports.deleteById = function (id,callback) {
+    var res = 0;
+    fs.readFile(dbPath,'utf8',function(err,data){
+        if(err){
+            return callback(err);
+        }
+        var students = JSON.parse(data).students;
+        for(var i = 0;i < students.length;i++){
+            console.log(students[i]);
+            if(students[i].id == id){
+                res = i;
+            }
+        }
+        console.log(res,'res等于');
+        students.splice(res,1);
+        console.log(students);
+         var fileData = JSON.stringify({students:students});
+            fs.writeFile(dbPath,fileData,function(err){
+                if(err){
+                    return status(500).send('服务器繁忙');
+                }else{
+                    callback(null);
+                }
+            })
+    })
 }
 
 

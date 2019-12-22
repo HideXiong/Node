@@ -1,5 +1,4 @@
 var express = require('express'); //加载express
-
 var router = require('./router'); //加载router模块
 var bodyParser = require('body-parser');
 
@@ -15,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+//挂载路由
 app.use(router);
 
 app.listen(3000, function() {

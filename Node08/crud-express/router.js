@@ -43,16 +43,39 @@ router.post('/students/new', function(req, res) {
     })
 })
 
+//渲染编辑信息到页面
 router.get('/students/edit', function(req, res) {
-
+   Students.findById(parseInt(req.query.id),function(err,student){
+        if(err){
+            return res.status(500).send('服务器繁忙');
+        }else{
+           res.render('edit.html',{
+            student: student
+           })
+        }
+   })
 })
 
+
+//编辑提交
 router.post('/students/edit', function(req, res) {
-
+    Students.updateById(req.body,function(err){
+        if(err){
+            return status(500).send('服务器繁忙');
+        }
+         res.redirect('/students');
+    })
 })
 
+//删除
 router.get('/students/delete', function(req, res) {
-
+    
+    Students.deleteById(req.query.id,function(err){
+         if(err){
+            return status(500).send('服务器繁忙');
+        }
+         res.redirect('/students');
+    })
 })
 
 //导出router
