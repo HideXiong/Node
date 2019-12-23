@@ -109,9 +109,7 @@ exports.deleteById = function (id,callback) {
                 res = i;
             }
         }
-        console.log(res,'res等于');
         students.splice(res,1);
-        console.log(students);
          var fileData = JSON.stringify({students:students});
             fs.writeFile(dbPath,fileData,function(err){
                 if(err){
